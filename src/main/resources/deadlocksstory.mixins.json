@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.frigidambiance.deadlocksstory.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "deadlocksstory.refmap.json",
+  "mixins": [
+    "BreedableRelationshipMixin",
+    "BoardBlockEntityMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
