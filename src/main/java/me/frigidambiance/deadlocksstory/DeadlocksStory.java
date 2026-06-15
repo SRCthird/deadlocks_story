@@ -31,6 +31,7 @@ public class DeadlocksStory {
             Stats.CUSTOM.get(ModStats.MCA_GIFTS_GIVEN.get(), StatFormatter.DEFAULT);
             Stats.CUSTOM.get(ModStats.MCA_ROOMS_CREATED.get(), StatFormatter.DEFAULT);
             Stats.CUSTOM.get(ModStats.BOUNTIES_COMPLETED.get(), StatFormatter.DEFAULT);
+            Stats.CUSTOM.get(ModStats.SPELLS_CAST.get(), StatFormatter.DEFAULT);
         });
     }
 }

@@ -23,6 +23,10 @@ public final class ModStats {
         CUSTOM_STATS.register("bounties_completed",
             () -> ResourceLocation.fromNamespaceAndPath(DeadlocksStory.MOD_ID, "bounties_completed"));
 
+    public static final RegistryObject<ResourceLocation> SPELLS_CAST =
+        CUSTOM_STATS.register("spells_cast",
+            () -> ResourceLocation.fromNamespaceAndPath(DeadlocksStory.MOD_ID, "spells_cast"));
+
     private ModStats() {
     }
 

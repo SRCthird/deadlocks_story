@@ -30,6 +30,10 @@ public final class DeadlocksStoryStats {
         forfeit(player, ModStats.MCA_ROOMS_CREATED.get(), "MCA room removed");
     }
 
+    public static void awardSpellCast(ServerPlayer player, String spellId) {
+        award(player, ModStats.SPELLS_CAST.get(), "spell cast: " + spellId);
+    }
+
     private static void award(ServerPlayer player, ResourceLocation statId, String debugName) {
         Stat<ResourceLocation> stat = Stats.CUSTOM.get(statId);
 
