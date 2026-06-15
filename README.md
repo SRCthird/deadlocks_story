@@ -5,7 +5,9 @@ Deadlock's Story is a very small Forge mod for the **Deadlock's End** modpack. I
 Currently, the mod tracks:
 
 * Gifts successfully given to **Minecraft Comes Alive** villagers
+* MCA rooms created through the **Minecraft Comes Alive** blueprint system
 * Bounties successfully completed at a **Bountiful** Bounty Board
+* Spells successfully cast with **Iron's Spells 'n Spellbooks**
 
 These stats can be viewed in the vanilla Statistics screen and used with Minecraft scoreboard objectives, FTB Quests, or other progression systems.
 
@@ -21,8 +23,11 @@ Required mods:
 
 * Minecraft Comes Alive Reborn `7.6.16+1.20.1`
 * Bountiful `6.0.4+1.20.1`
+* Iron's Spells 'n Spellbooks `1.20.1-3.15.6`
 
-This mod uses mixins against MCA and Bountiful internals, so it is intended for the tested versions above. Newer or older versions may require updated mixin targets.
+This mod uses mixins against MCA and Bountiful internals, so it is intended for the tested versions above. I haven't tested newer or older versions so they may require updated mixin targets.
+
+Iron's Spells 'n Spellbooks is tracked through its Forge spell-cast event, so that integration is less fragile than the MCA and Bountiful mixins.
 
 ## Added Statistics
 
@@ -43,6 +48,27 @@ Example scoreboard objective:
 /scoreboard objectives setdisplay sidebar mca_gifts
 ```
 
+### MCA Rooms Created
+
+Tracks rooms successfully added through MCA's blueprint system.
+
+This stat only increments when MCA's internal room/building count actually increases. If the blueprint menu incorrectly allows repeated clicks without adding another room, the stat should not increase.
+
+When a room is removed through MCA, this stat is reduced by 1, but it will not go below 0.
+
+Stat ID:
+
+```mcfunction
+minecraft.custom:deadlocksstory.mca_rooms_created
+```
+
+Example scoreboard objective:
+
+```mcfunction
+/scoreboard objectives add mca_rooms minecraft.custom:deadlocksstory.mca_rooms_created
+/scoreboard objectives setdisplay sidebar mca_rooms
+```
+
 ### Bounties Completed
 
 Tracks successful bounty turn-ins at a Bountiful Bounty Board.
@@ -58,6 +84,23 @@ Example scoreboard objective:
 ```mcfunction
 /scoreboard objectives add bounties_completed minecraft.custom:deadlocksstory.bounties_completed
 /scoreboard objectives setdisplay sidebar bounties_completed
+```
+
+### Spells Cast
+
+Tracks successful spell casts from Iron's Spells 'n Spellbooks.
+
+Stat ID:
+
+```mcfunction
+minecraft.custom:deadlocksstory.spells_cast
+```
+
+Example scoreboard objective:
+
+```mcfunction
+/scoreboard objectives add spells_cast minecraft.custom:deadlocksstory.spells_cast
+/scoreboard objectives setdisplay sidebar spells_cast
 ```
 
 ## Configuration
@@ -79,7 +122,7 @@ Set `debug` to `true` to enable additional logging for stat tracking. This is re
 
 ## Development Setup
 
-MCA and Bountiful are required on the local compile/runtime classpath while developing, but they are not be bundled into the Deadlocks Story jar.
+MCA, Bountiful, and Iron's Spells 'n Spellbooks are required on the local compile/runtime classpath while developing, but they are not bundled into the Deadlock's Story jar.
 
 Expected local setup:
 
@@ -88,6 +131,7 @@ DeadlocksStory/
   libs/
     mca.jar
     bountiful.jar
+    irons_spellbooks.jar
   src/
   build.gradle
 ```
@@ -103,6 +147,9 @@ dependencies {
 
     compileOnly files("libs/bountiful.jar")
     runtimeOnly files("libs/bountiful.jar")
+
+    compileOnly files("libs/irons_spellbooks.jar")
+    runtimeOnly files("libs/irons_spellbooks.jar")
 
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
@@ -124,4 +171,4 @@ build/libs/
 
 ## Notes
 
-Deadlock's Story is designed specifically for the Deadlock's End modpack. You can probably make it work with your own pack, but I wouldn't recommended it. Feel free to try!
+Deadlock's Story is designed specifically for the Deadlock's End modpack. You can probably make it work with your own pack, but I wouldn't recommend it. Feel free to try!
