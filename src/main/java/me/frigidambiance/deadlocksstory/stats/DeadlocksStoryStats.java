@@ -15,7 +15,14 @@ public final class DeadlocksStoryStats {
     }
 
     public static void awardMcaGift(ServerPlayer player) {
-        ResourceLocation statId = ModStats.MCA_GIFTS_GIVEN.get();
+        award(player, ModStats.MCA_GIFTS_GIVEN.get(), "MCA gift");
+    }
+
+    public static void awardBountyCompleted(ServerPlayer player) {
+        award(player, ModStats.BOUNTIES_COMPLETED.get(), "bounty completion");
+    }
+
+    private static void award(ServerPlayer player, ResourceLocation statId, String debugName) {
         Stat<ResourceLocation> stat = Stats.CUSTOM.get(statId);
 
         player.awardStat(stat, 1);
@@ -23,25 +30,41 @@ public final class DeadlocksStoryStats {
         if (Config.debugLogging()) {
             int value = player.getStats().getValue(stat);
             LOGGER.info(
-                    "[DeadlocksStory] Awarded MCA gift stat to {}; new value = {}",
-                    player.getGameProfile().getName(),
-                    value
+                "[DeadlocksStory] Awarded {} stat to {}; new value = {}",
+                debugName,
+                player.getGameProfile().getName(),
+                value
             );
         }
     }
 
-    public static void awardBountyCompleted(ServerPlayer player) {
-        ResourceLocation statId = ModStats.BOUNTIES_COMPLETED.get();
+    private static void forfeit(ServerPlayer player, ResourceLocation statId, String debugName) {
         Stat<ResourceLocation> stat = Stats.CUSTOM.get(statId);
 
-        player.awardStat(stat, 1);
+        int currentValue = player.getStats().getValue(stat);
+
+        if (currentValue <= 0) {
+            if (Config.debugLogging()) {
+                LOGGER.info(
+                        "[DeadlocksStory] Tried to remove {} stat from {}, but value was already 0",
+                        debugName,
+                        player.getGameProfile().getName()
+                );
+            }
+
+            return;
+        }
+
+        player.awardStat(stat, -1);
 
         if (Config.debugLogging()) {
-            int value = player.getStats().getValue(stat);
+            int newValue = player.getStats().getValue(stat);
             LOGGER.info(
-                    "[DeadlocksStory] Awarded bounty completion stat to {}; new value = {}",
+                    "[DeadlocksStory] Removed {} stat from {}; old value = {}, new value = {}",
+                    debugName,
                     player.getGameProfile().getName(),
-                    value
+                    currentValue,
+                    newValue
             );
         }
     }
