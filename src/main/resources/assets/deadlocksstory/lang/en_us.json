@@ -1,4 +1,5 @@
 {
   "stat.deadlocksstory.mca_gifts_given": "Gifts Given to MCA Villagers",
-  "stat.deadlocksstory.bounties_completed": "Bounties Completed"
+  "stat.deadlocksstory.mca_rooms_created": "MCA Rooms Created",
+  "stat.deadlocksstory.bounties_completed": "Bounties Completed",
 }

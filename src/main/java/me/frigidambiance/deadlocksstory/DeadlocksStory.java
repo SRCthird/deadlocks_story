@@ -21,14 +21,15 @@ public class DeadlocksStory {
         modEventBus.addListener(this::commonSetup);
 
         context.registerConfig(
-              ModConfig.Type.COMMON,
-              Config.SPEC
+            ModConfig.Type.COMMON,
+            Config.SPEC
         );
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Stats.CUSTOM.get(ModStats.MCA_GIFTS_GIVEN.get(), StatFormatter.DEFAULT);
+            Stats.CUSTOM.get(ModStats.MCA_ROOMS_CREATED.get(), StatFormatter.DEFAULT);
             Stats.CUSTOM.get(ModStats.BOUNTIES_COMPLETED.get(), StatFormatter.DEFAULT);
         });
     }

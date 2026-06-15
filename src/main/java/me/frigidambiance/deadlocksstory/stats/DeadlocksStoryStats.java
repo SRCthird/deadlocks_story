@@ -22,6 +22,14 @@ public final class DeadlocksStoryStats {
         award(player, ModStats.BOUNTIES_COMPLETED.get(), "bounty completion");
     }
 
+    public static void awardMcaRoomCreated(ServerPlayer player) {
+        award(player, ModStats.MCA_ROOMS_CREATED.get(), "MCA room created");
+    }
+
+    public static void forfeitMcaRoomCreated(ServerPlayer player) {
+        forfeit(player, ModStats.MCA_ROOMS_CREATED.get(), "MCA room removed");
+    }
+
     private static void award(ServerPlayer player, ResourceLocation statId, String debugName) {
         Stat<ResourceLocation> stat = Stats.CUSTOM.get(statId);
 

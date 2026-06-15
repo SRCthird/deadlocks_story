@@ -6,7 +6,9 @@
   "refmap": "deadlocksstory.refmap.json",
   "mixins": [
     "BreedableRelationshipMixin",
-    "BoardBlockEntityMixin"
+    "BoardBlockEntityMixin",
+    "ReportBuildingMessageMixin",
+    "VillageRemoveBuildingMixin"
   ],
   "client": [],
   "server": [],
